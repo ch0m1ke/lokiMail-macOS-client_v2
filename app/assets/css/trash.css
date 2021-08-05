@@ -1,0 +1,55 @@
+.inboxTrash  {
+    /* border: 1px solid red; */
+    min-height: 40px;
+    line-height: 15px;
+    background-color: #818181;
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    padding-bottom: 0.001rem;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+}
+
+.draftTrash {
+        /* border: 1px solid red; */
+        min-height: 40px;
+        line-height: 15px;
+        background-color: #818181;
+        position: relative;
+        margin-bottom: 20px;
+        border-radius: 3px;
+        padding-bottom: 0.001rem;
+        padding-left: 0.1rem;
+        padding-right: 0.1rem;
+    }
+
+
+.sentTrash {
+        /* border: 1px solid red; */
+        min-height: 40px;
+        line-height: 15px;
+        background-color: #818181;
+        position: relative;
+        margin-bottom: 20px;
+        border-radius: 3px;
+        padding-bottom: 0.001rem;
+        padding-left: 0.1rem;
+        padding-right: 0.1rem;
+}
+
+.trashMessage {
+    /* border: 1px solid red; */
+    border-radius: 3px;
+    text-align: center;
+    color: #333;
+    position:static;
+    height: 100%;
+    width: 100%;
+    user-select: none;
+    padding-top: 2px;
+}
+
+/* #mailboxName {
+    line-height: 25px;
+} */

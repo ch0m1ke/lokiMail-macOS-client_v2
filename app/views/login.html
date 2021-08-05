@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lokiMail Client - login</title>
+    <link rel="stylesheet" href="./../assets/css/login.css">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
+</head>
+
+<body>
+
+    <div class="loginForm">
+        <form id="loginFrm" action="_blank">
+            <h2>Signin to continue to your account</h2>
+            <p>Username</p>
+            <input type="text" id="username" pattern="[a-z0-9.]{2,20}"
+                title="The username must be between 5-20 lowercase alphanumeric characters." minlength="5" required>
+            <p>Password</p>
+            <input type="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}"
+                title="8 - 20 characters (Including numbers, uppercase, lowercase and special ones)." required>
+            <p style="margin-top: -1.5rem; margin-left: calc(100% - 25px);" onclick="showPwd('password','pwdShow')"><i
+                    class="fas fa-eye-slash" id="pwdShow"></i></p>
+            <p style="font-size: 8px;">&nbsp;</p>
+            <button id="submit-btn" type="submit" style="margin-bottom: 3px;">Login</button>
+        </form>
+        <button id="quit-app-btn">Quit App</button>
+        <p id="login-error-message">&nbsp;</p>
+        <p id="status-label">&nbsp;</p>
+    </div>
+
+    <footer>
+        <p id="app-name">lokiMail</p>
+        <p id="peer-id">No connection to P2P relay</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        require('./../assets/js/login.js');
+    </script>
+    <script>
+        function showPwd(inputID, btnID) {
+            var input = document.getElementById(inputID);
+            if (input.type === "password") {
+                document.getElementById(inputID).type = "text";
+                document.getElementById(btnID).classList.value = "fas fa-eye";
+            } else {
+                document.getElementById(inputID).type = "password";
+                document.getElementById(btnID).classList.value = "fas fa-eye-slash";
+            }
+        }
+    </script>
+    <!-- End Scripts -->
+</body>
+
+</html>

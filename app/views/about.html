@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>About</title>
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+    <link rel="stylesheet" href="./../assets/css/about.css">
+</head>
+
+<body>
+    <div id="content" class="content">
+        <table>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <h3 id="app-name" style="text-align: center;">lokiMail</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Chrome version:&nbsp;<span id="chrome-version"></span></p>
+                        <p>Node version:&nbsp;<span id="node-version"></span></p>
+                        <p>Electron version:&nbsp;<span id="electron-version"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button onClick="closeAbout()">Close</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    function closeAbout() {
+        this.close();
+    }
+</script>
+
+</html>

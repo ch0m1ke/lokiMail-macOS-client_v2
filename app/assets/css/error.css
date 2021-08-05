@@ -1,0 +1,78 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e6e6e6;
+    z-index: 1;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    font-size: 14px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+/*Hide the scrollbar while scrolling*/
+::-webkit-scrollbar {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    color: #000;
+    font-size: 15px;
+    /*border: 1px solid green;*/
+    position: fixed;
+    /* left: 44; */
+    bottom: 0;
+    /* width: calc(100% - 48px); */
+    width: 100%;
+    height: 48px;
+    z-index: 1;
+}
+
+footer p {
+    user-select: none;
+}
+
+button {
+    background: #e6e6e6;
+    border-radius: 3px;
+    border: 0;
+    box-shadow: none;
+    padding: 10px;
+    color: #000;
+    font-weight: bolder;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background: #333333;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.errorForm {
+    background-color: #fff;
+    z-index: 2;
+    padding: 40px;
+    padding-bottom: 20px;
+    border-radius: 6px;
+    user-select: none;
+    text-align: center;
+    font-size: 18px;
+    /* border: 1px solid red; */
+}
+
+#db-delete-btn:hover {
+    background: red;
+    color: #fff;
+}
+
+#db-backup-btn:hover {
+    background: green;
+    color: #fff;
+}

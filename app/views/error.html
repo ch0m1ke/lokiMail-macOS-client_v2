@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lokiMail Client - login</title>
+    <link rel="stylesheet" href="./../assets/css/error.css">
+    <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
+</head>
+
+<body>
+
+    <div class="errorForm">
+        <strong>
+            <p>We are sorry! Something went wrong.<br>The app cannot be started.</p>
+        </strong>
+        <p style="color: red;">[Corrupted DB]</p>
+        <p>If you are not sure your DB contains data, back it up.<br>Alternatively, you can delete it and restart the
+            App.</p>
+        <button id="db-backup-btn" style="margin-bottom: 3px">Backup DB and restart</button>
+        <button id="db-delete-btn">Delete DB and restart</button>
+    </div>
+
+    <footer>
+        <p id="app-name">lokiMail</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        require('./../assets/js/error.js');
+    </script>
+    <!-- End Scripts -->
+</body>
+
+</html>

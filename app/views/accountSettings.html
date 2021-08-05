@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lokiMail Client</title>
+  <link rel="stylesheet" href="./../assets/css/main.css">
+  <link rel="stylesheet" href="./../assets/css/accountSettings.css">
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
+</head>
+
+<body>
+
+  <div id="navBar" class="navBar">
+    <!-- Page name, Search bar and New email button -->
+    <div id="navBarTitle" class="navBarTitle">Account Settings</div>
+  </div>
+
+  <div id="sideMenu" class="sideMenu">
+
+    <span style="font-size:30px;cursor:pointer" class="closebtn" onclick="openCloseNav()">&#9776;</span>
+    <p>&nbsp;</p>
+    <ul>
+      <li><a href="#"><i class="fa fa-sm fa-user-circle"></i><span class="menuItemText"
+            id="lbl-username-menu">&nbsp;&nbsp;&nbsp;Username</span></a></li>
+      <hr class="solid">
+      <li><a href="inbox.html"><i class="fa fa-sm fa-inbox"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Inbox</span></a>
+      </li>
+      <li><a href="drafts.html"><i class="fa fa-sm fa-pencil-ruler"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Drafts</span></a>
+      </li>
+      <li><a href="sent.html"><i class="fa fa-sm fa-paper-plane"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Sent</a></span></li>
+      <li><a href="trash.html"><i class="fa fa-sm fa-trash-alt"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Trash</a></span>
+      </li>
+      <hr class="solid">
+      <li><a href="contacts.html"><i class="fa fa-sm fa-address-book"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Contacts</a></span></li>
+      <li><a href="settings.html"><i class="fa fa-sm fa-tools"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Settings</a></span>
+      </li>
+      <li><a href="#"><i class="fa fa-sm fa-users"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Switch&nbsp;account</a></span></li>
+      <li><a href="#" id="logout-btn"><i class="fa fa-sm fa-sign-out-alt"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Logout</a></span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Rest of the body -->
+  <div id="mainContent" class="mainContent">
+    <div id="settings" class="settings">
+      <h3>Account</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <button id="passwordBtn" onClick="openOptions(this.id)">Password</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button id="recoveryEmailBtn" onClick="openOptions(this.id)">Recovery E-mail</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button id="signatureBtn" onClick="openOptions(this.id)">Signature</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <p style="font-size: 6px;">&nbsp;</p> -->
+      <h3>Privacy</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <label class="label">Auto Load Remote Content</label>
+            </td>
+            <td style="text-align: left;">
+              <label class="switch"><input type="checkbox" id="autoLoadRemoteContent"><span
+                  class="slider round"></span></label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="label">Allow e-mail messages from everyone</label>
+            </td>
+            <td style="text-align: left;">
+              <label class="switch"><input type="checkbox" id="allowEmailFromEveryone"><span
+                  class="slider round"></span></label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="label">Check for tracking pixels</label>
+            </td>
+            <td style="text-align: left;">
+              <label class="switch"><input type="checkbox" id="checkForTrackingPixels"><span
+                  class="slider round"></span></label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Account Settings Modals -->
+
+  <div id="passwordChangeModal" class="modal">
+
+    <div class="modal-content">
+      <span style="font-size:15px;cursor:pointer; float:right; padding-top: 5px; padding-right: 5px;"
+        class="closeModalBtn" onclick="closeModal()"><i class="fa fa-lg fa-window-close"></i></span>
+      <br>
+      <p style="user-select: none; font-size: 6px;">&nbsp;</p>
+      <form action="#">
+        <table class="modal_table" style="margin-top: 10px;">
+          <tbody>
+            <tr>
+              <td style="text-align: right;">
+                <p>Current password</p>
+              </td>
+              <td><input type="password"></td>
+            </tr>
+            <tr>
+              <td style="text-align: right;">
+                <p>New password</p>
+              </td>
+              <td><input type="password"></td>
+            </tr>
+            <tr>
+              <td style="text-align: right;">
+                <p>Re-type new password</p>
+              </td>
+              <td><input type="password"></td>
+            </tr>
+            <tr>
+              <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center;"><button id="savePasswordBtn">Save Password</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+  </div>
+
+  <div id="recoveryEmailModal" class="modal">
+
+    <div class="modal-content">
+      <span style="font-size:15px;cursor:pointer; float:right; padding-top: 5px; padding-right: 5px;"
+        class="closeModalBtn" onclick="closeModal()"><i class="fa fa-lg fa-window-close"></i></span>
+      <br>
+      <p style="user-select: none; font-size: 6px;">&nbsp;</p>
+      <form action="#">
+        <table class="modal_table" style="margin-top: 35px;">
+          <tbody>
+            <tr>
+              <td style="text-align: right;">
+                <p>Recovery E-mail</p>
+              </td>
+              <td><input type="text"></td>
+            </tr>
+            <tr>
+              <td style="text-align: right;">
+                <p>Current password</p>
+              </td>
+              <td><input type="password"></td>
+            </tr>
+            <tr>
+              <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center;"><button id="saveRecoveryEmailBtn">Save E-mail</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+  </div>
+
+  <div id="signatureModal" class="modal">
+
+    <div class="modal-content">
+      <span style="font-size:15px;cursor:pointer; float:right; padding-top: 5px; padding-right: 5px;"
+        class="closeModalBtn" onclick="closeModal()"><i class="fa fa-lg fa-window-close"></i></span>
+      <form action="#">
+        <br>
+        <p style="user-select: none; font-size: 6px;">&nbsp;</p>
+        <table class="modal_table">
+          <tbody>
+            <tr>
+              <td style="text-align: center;">
+                <p>Your Signature</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: center;"><textarea
+                  style="font-family:'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center;"><button id="saveSignatureBtn">Save Signature</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- End Accoutn Settings Modal -->
+  <!-- End Rest of the body -->
+
+  <!-- Footer -->
+  <footer>
+    <p id="app-name">lokiMail</p>
+  </footer>
+  <!-- End Footer -->
+
+  <!-- Scripts -->
+
+  <script>
+    // Open/Close side menu
+    function openCloseNav() {
+      if (document.getElementById("sideMenu").style.width == "180px") {
+        document.getElementById("sideMenu").style.width = "44px";
+      } else {
+        document.getElementById("sideMenu").style.width = "180px";
+      }
+    }
+  </script>
+
+  <script>
+    // Minimise the side menu if the user clicks outside and this is still open
+    window.addEventListener('click', function (e) {
+      if (!document.getElementById('sideMenu').contains(e.target) && (document.getElementById("sideMenu").style
+          .width == "180px")) {
+        document.getElementById("sideMenu").style.width = "44px";
+      }
+    });
+  </script>
+
+  <script>
+    var buttonID = '';
+    var modalID = '';
+
+    function openOptions(btnID) {
+      buttonID = btnID;
+      /*document.getElementById(buttonID).style.background = '#333';
+      document.getElementById(buttonID).style.color = '#fff';*/
+      // ToDo: Open modal with the options and when the user closes the modal, reset the button color.
+      switch (buttonID) {
+        case 'passwordBtn':
+          document.getElementById('passwordChangeModal').style.display = "block";
+          modalID = 'passwordChangeModal';
+          break;
+        case 'recoveryEmailBtn':
+          document.getElementById('recoveryEmailModal').style.display = "block";
+          modalID = 'recoveryEmailModal';
+          break;
+        case 'signatureBtn':
+          document.getElementById('signatureModal').style.display = "block";
+          modalID = 'signatureModal';
+          break;
+        default:
+          //error message
+          alert("No button selected!");
+      }
+    }
+
+    function closeModal() {
+
+      switch (modalID) {
+        case 'passwordChangeModal':
+          document.getElementById('passwordChangeModal').style.display = "none";
+          break;
+        case 'recoveryEmailModal':
+          document.getElementById('recoveryEmailModal').style.display = "none";
+          break;
+        case 'signatureModal':
+          document.getElementById('signatureModal').style.display = "none";
+          break;
+        default:
+          //error message
+          alert("No modal to close!");
+      }
+      /*document.getElementById(buttonID).style.background = '#e6e6e6';
+      document.getElementById(buttonID).style.color = '#000';*/
+      buttonID = '';
+    }
+  </script>
+
+  <script>
+    require('./../assets/js/common.js')
+  </script>
+
+  <!-- End Scripts -->
+</body>
+
+</html>

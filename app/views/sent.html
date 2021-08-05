@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lokiMail Client</title>
+  <link rel="stylesheet" href="./../assets/css/main.css">
+  <link rel="stylesheet" href="./../assets/css/inbox.css">
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
+</head>
+
+<body>
+
+  <div id="navBar" class="navBar">
+    <!-- Page name, Search bar and New email button -->
+    <div id="navBarTitle" class="navBarTitle">Sent</div>
+    <div id="navBarMenu" class="navBarMenu">
+      <ul>
+        <li>
+          <input id="searchBar" class="searchBar" type="text">
+          <a href="#"><i class="fa fa-sm fa-search" id="searchBtn" onclick="showSearchBar()"></i></a>
+        </li>
+        <li>
+          <a href="#" id="newMessageBtn" onClick="newMessage()"><i class="fa fa-sm fa-pencil-alt"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="sideMenu" class="sideMenu">
+
+    <span style="font-size:30px;cursor:pointer" class="closebtn" onclick="openCloseNav()">&#9776;</span>
+    <p>&nbsp;</p>
+    <ul>
+      <li><a href="accountSettings.html"><i class="fa fa-sm fa-user-circle"></i><span class="menuItemText"
+            id="lbl-username-menu">&nbsp;&nbsp;&nbsp;Username</span></a></li>
+      <hr class="solid">
+      <li><a href="inbox.html"><i class="fa fa-sm fa-inbox"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Inbox</span></a>
+      </li>
+      <li><a href="drafts.html"><i class="fa fa-sm fa-pencil-ruler"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Drafts</span></a>
+      </li>
+      <li><a href="#"><i class="fa fa-sm fa-paper-plane"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Sent</a></span></li>
+      <li><a href="trash.html"><i class="fa fa-sm fa-trash-alt"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Trash</a></span>
+      </li>
+      <hr class="solid">
+      <li><a href="contacts.html"><i class="fa fa-sm fa-address-book"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Contacts</a></span></li>
+      <li><a href="settings.html"><i class="fa fa-sm fa-tools"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Settings</a></span>
+      </li>
+      <li><a href="#"><i class="fa fa-sm fa-users"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Switch&nbsp;account</a></span></li>
+      <li><a href="#" id="logout-btn"><i class="fa fa-sm fa-sign-out-alt"></i><span
+            class="menuItemText">&nbsp;&nbsp;&nbsp;Logout</a></span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Rest of the body -->
+  <div id="messagesList" class="messagesList">
+    <h1 id="no-mail-message">No mail found</h1>
+  </div>
+
+  <div id="messageContainerRight" class="messageContainerRight">
+    <span style="font-size:15px;cursor:pointer; float:right; padding-top: 5px; padding-right: 5px; user-select: none;"
+      id="closeMessage" class="closeMessage" onclick="closeMessage()"><i class="fa fa-lg fa-window-close"></i></span>
+    <p style="user-select: none;">&nbsp;</p>
+    <div id="messageDiv" class="messageDiv" style="padding: 10px;">
+      <!-- The content of each message goes here -->
+    </div>
+    <div id="messageActions" class="messageActions">
+      <table>
+        <tbody>
+          <tr>
+            <td><button id="replyBtn" class="actionButton" onClick="alert('Reply')"><i
+                  class="fa fa-lg fa-reply"></i></button></td>
+            <td><button id="replyAllBtn" class="actionButton" onClick="alert('Reply all')"><i
+                  class="fa fa-lg fa-reply-all"></i></button></td>
+            <td><button id="shareBtn" class="actionButton" onClick="alert('Forward')"><i
+                  class="fa fa-lg fa-share"></i></button></td>
+            <td><button id="printBtn" class="actionButton" onClick="alert('Print')"><i
+                  class="fa fa-lg fa-print"></i></button></td>
+            <td>
+              <!-- <button id="delete-message-btn" class="actionButton" onClick="deleteMessage()"> -->
+              <button id="delete-message-btn" class="actionButton"><i class="fa fa-lg fa-trash-alt"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="newMessageContainer" class="newMessageContainer" style="user-select: none;">
+    <span style="font-size:15px;cursor:pointer; float:right; padding-top: 5px; padding-right: 5px; user-select: none;"
+      id="closeEditor" class="closeEditor" onclick="closeEditor()"><i class="fa fa-lg fa-window-close"></i></span>
+    <br>
+    <p style="user-select: none; font-size: 6px;">&nbsp;</p>
+    <p id="db-ID" style="position: absolute; visibility: hidden;"></p>
+    <div id="emailHeader" class="emailHeader">
+      <table>
+        <tbody>
+          <tr>
+            <td style="text-align: right;"><label class="label">From:&nbsp;</label></td>
+            <td style="width: 90%;"><input type="email" id="txtSender" disabled></td>
+          </tr>
+          <tr>
+            <td style="text-align: right;"><label class="label">To:&nbsp;</label></td>
+            <td style="width: 90%;"><input type="email" id="txtRecipient"></td>
+          </tr>
+          <tr>
+            <td style="text-align: right;"><label class="label">CC:&nbsp;</label></td>
+            <td style="width: 90%;"><input type="email" id="txtccRecipient"><span
+                style="font-size:12px; cursor:pointer;  padding-top: 5px; padding-left: 5px; user-select: none;"
+                id="showBccBtn" class="showBccBtn" onclick="showBcc()"><i class="fa fa-lg fa-caret-down"></i></span>
+            </td>
+          </tr>
+          <tr id="bccRow" style="visibility: collapse;">
+            <td style="text-align: right;"><label class="label">BCC:&nbsp;</label></td>
+            <td style="width: 90%;"><input type="email" id="txtbccRecipient"><span
+                style="font-size:12px; cursor:pointer;  padding-top: 5px; padding-left: 5px; user-select: none;"
+                id="hideBccBtn" class="hideBccBtn" onclick="hideBcc()"><i class="fa fa-lg fa-caret-up"></i></span></td>
+          </tr>
+          <tr>
+            <td style="text-align: right;"><label class="label">Subject:&nbsp;</label></td>
+            <td style="width: 90%;"><input type="text" id="txtemailSubject"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="editorDiv" class="editorDiv">
+      <!-- This is the Message Editor -->
+      <div class="toolbar">
+        <ul class="tool-list">
+          <li class="tool">
+            <button type="button" data-command='justifyLeft' class="tool--btn">
+              <i class=' fas fa-align-left'></i>
+            </button>
+          </li>
+          <li class="tool">
+            <button type="button" data-command='justifyCenter' class="tool--btn">
+              <i class=' fas fa-align-center'></i>
+            </button>
+          </li>
+          <li class="tool">
+            <button type="button" data-command='justifyRight' class="tool--btn">
+              <i class=' fas fa-align-right'></i>
+            </button>
+          </li>
+          <li class="tool">
+            <button type="button" data-command='justifyFull' class="tool--btn">
+              <i class=' fas fa-align-justify'></i>
+            </button>
+          </li>
+          <li class="tool">
+            <button type="button" data-command='undo' class="tool--btn">
+              <i class=' fas fa-undo'></i>
+            </button>
+          </li>
+          <li class="tool">
+            <button type="button" data-command="bold" class="tool--btn">
+              <i class=' fas fa-bold'></i>
+            </button>
+          </li>
+          <li class="tool">
+            <button type="button" data-command="italic" class="tool--btn">
+              <i class=' fas fa-italic'></i>
+            </button>
+          </li>
+          <li class="tool">
+            <button type="button" data-command="underline" class="tool--btn">
+              <i class=' fas fa-underline'></i>
+            </button>
+          </li>
+          <li class="tool">
+            <button type="button" data-command="insertOrderedList" class="tool--btn">
+              <i class=' fas fa-list-ol'></i>
+            </button>
+          </li>
+          <li class="tool">
+            <button type="button" data-command="insertUnorderedList" class="tool--btn">
+              <i class=' fas fa-list-ul'></i>
+            </button>
+          </li>
+          <li class="tool">
+            <button type="button" data-command="createlink" class="tool--btn">
+              <i class=' fas fa-link'></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div id="output" contenteditable="true">
+        <div id="emailBody" class="emailBody">
+          <!-- Here the content of the new message -->
+        </div>
+      </div>
+      <div id="sendActionMenu" class="sendActionMenu">
+        <!-- Send button -->
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <button id="btnSend"><i class="fa fa-sm fa-paper-plane"></i>&nbsp;Send</button>
+              </td>
+              <td>
+                <button id="btnAttach"><i class="fa fa-sm fa-paperclip"></i>&nbsp;Attach</button>
+              </td>
+              <td>
+                <button id="btnCancel"><i class="fa fa-sm fa-ban"></i>&nbsp;Cancel</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- End of Message Editor -->
+    </div>
+  </div>
+
+  <!-- End Rest of the body -->
+
+  <!-- Footer -->
+  <footer>
+    <p id="app-name">lokiMail</p>
+  </footer>
+  <!-- End Footer -->
+
+  <!-- Scripts -->
+
+  <script>
+    // Open/Close side menu
+    function openCloseNav() {
+      if (document.getElementById("sideMenu").style.width == "180px") {
+        document.getElementById("sideMenu").style.width = "44px";
+      } else {
+        document.getElementById("sideMenu").style.width = "180px";
+      }
+    }
+  </script>
+
+  <script>
+    // Minimise the side menu if the user clicks outside and this is still open
+    window.addEventListener('click', function (e) {
+      if (!document.getElementById('sideMenu').contains(e.target) && (document.getElementById("sideMenu").style
+          .width == "180px")) {
+        document.getElementById("sideMenu").style.width = "44px";
+      }
+
+      // Hide search bar if user clicks outside
+      if (!document.getElementById('navBarMenu').contains(e.target) && (document.getElementById("searchBar").style
+          .visibility == "visible")) {
+        document.getElementById('searchBar').style.width = '0px';
+        document.getElementById("searchBar").style.visibility = "hidden";
+      }
+
+    });
+  </script>
+
+  <script>
+    // Show search bar
+    function showSearchBar() {
+      document.getElementById('searchBar').style.width = '200px';
+      document.getElementById('searchBar').style.visibility = 'visible';
+    }
+  </script>
+
+
+
+  <script>
+    var mID = '';
+    var editorIsOpen = false;
+
+    function readMessage(message_ID) { // Open message content window when user clicks on a message
+
+      if (mID != '') {
+        closeMessage(mID);
+      }
+
+      if (editorIsOpen) {
+        closeEditor();
+      }
+
+      mID = message_ID;
+
+      // Get the content of the message
+      var divContent = document.getElementById(mID).innerHTML;
+
+      document.getElementById("messagesList").style.width = "calc(50vw - 6px)";
+      document.getElementById("messageContainerRight").style.left = "calc(50vw + 46px)";
+      document.getElementById("messageContainerRight").style.visibility = "visible";
+      // document.getElementById("delete-message-btn").setAttribute("id", ("delete-message-btn-" + mID.split("messageContent_")[1]));
+      // Replace the content of MessageDiv with the one of the selected message
+      document.getElementById("messageDiv").innerHTML = divContent;
+
+      //highlighting the selected message
+      document.getElementById(mID).style.backgroundColor = '#28282e';
+      document.getElementById(mID).style.color = '#fff';
+    }
+
+    // function deleteMessage() {
+    //   document.getElementById(mID).remove();
+    //   closeMessage();
+    //   removeMessageFromDB();
+    //   isMailBoxEmpty();
+    // }
+
+    function closeMessage() { // Close message content window when user clicks on the X button
+      if (!editorIsOpen) {
+        document.getElementById("messagesList").style.width = "calc(100% - 52px)";
+      }
+      document.getElementById("messageContainerRight").style.left = "100%";
+      document.getElementById("messageContainerRight").style.visibility = "hidden";
+
+      if (document.getElementById(mID)) { // If closeMessage() has not been called by deleteMessage()
+        // reset color of div and make mID null
+        document.getElementById(mID).style.backgroundColor = '';
+        document.getElementById(mID).style.color = '';
+      }
+      mID = '';
+    }
+
+    function newMessage() {
+      if (mID != '') {
+        document.getElementById("messageContainerRight").style.left = "100%";
+        document.getElementById("messageContainerRight").style.visibility = "hidden";
+        // reset color of div and make mID null
+        document.getElementById(mID).style.backgroundColor = '';
+        document.getElementById(mID).style.color = '';
+        mID = '';
+      }
+      if (!editorIsOpen) {
+        document.getElementById("messagesList").style.width = "calc(50vw - 6px)";
+        document.getElementById("newMessageContainer").style.left = "calc(50vw + 46px)";
+        document.getElementById("newMessageContainer").style.visibility = "visible";
+        editorIsOpen = true;
+        /*console.log("Editor is open? " + editorIsOpen);*/
+      }
+      /*else{
+            console.log("Editor is open? Already open");
+          }*/
+      // Clean editor fields
+      // document.getElementById('db-ID').innerText = '';
+      document.getElementById("txtRecipient").value = '';
+      document.getElementById("txtccRecipient").value = '';
+      document.getElementById("txtbccRecipient").value = '';
+      document.getElementById("txtemailSubject").value = '';
+      document.getElementById("output").innerHTML = '';
+    }
+
+    function closeEditor() {
+      if (mID == '') {
+        document.getElementById("messagesList").style.width = "calc(100% - 52px)";
+      }
+      document.getElementById("newMessageContainer").style.left = "100vw";
+      document.getElementById("newMessageContainer").style.visibility = "hidden";
+      editorIsOpen = false;
+      /*console.log("Editor is open? " + editorIsOpen);*/
+    }
+
+    function showBcc() {
+      document.getElementById("bccRow").style.visibility = "visible";
+      document.getElementById("showBccBtn").style.visibility = "hidden";
+    }
+
+    function hideBcc() {
+      document.getElementById("bccRow").style.visibility = "collapse";
+      document.getElementById("showBccBtn").style.visibility = "visible";
+    }
+  </script>
+
+  <script>
+    let output = document.getElementById('output');
+    let buttons = document.getElementsByClassName('tool--btn');
+    for (let btn of buttons) {
+      btn.addEventListener('click', () => {
+        let cmd = btn.dataset['command'];
+        if (cmd === 'createlink') {
+          /*console.log("Type a link");
+          let url = prompt("Enter the link here: ", "http:\/\/");
+          document.execCommand(cmd, false, url);*/
+
+          // ToDo: Find a substitute for prompt()
+
+        } else {
+          document.execCommand(cmd, false, null);
+        }
+      })
+    }
+  </script>
+
+  <script>
+    require('./../assets/js/sentRenderer.js');
+    // require('./../assets/js/common.js');
+  </script>
+
+  <!-- End Scripts -->
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "lokimail_v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "watch": "nodemon --exec electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=arm64 --icon=app/assets/icons/icon.icns --prune=true --out=release-builds"
+  },
+  "author": "Michele Chiarello",
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "electron": "^12.0.4",
+    "electron-prompt": "^1.6.2",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.6",
+    "nodemon": "^2.0.7",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "electron-packager": "^15.2.0"
+  }
+}
