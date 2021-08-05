@@ -1,5 +1,5 @@
 {
-    "websiteURL": "https://loki-mail.herokuapp.com/",
-    "p2pRelay": "loki-mail-p2p-relay.herokuapp.com",
+    "websiteURL": "https://loki-mail.com/",
+    "p2pRelay": "p2p.loki-mail.com",
     "domain": "@loki-mail.com"
 }
